@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: jenkins
+  containers:
+  - name: cli
+    image: caladreas/cbcore-cli:2.176.2.3
+    imagePullPolicy: Always
+    command:
+    - cat
+    tty: true
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "150m"
+      limits:
+        memory: "50Mi"
+        cpu: "150m"
+  - name: kubectl
+    image: bitnami/kubectl:latest
+    command: ["cat"]
+    tty: true
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "100m"
+      limits:
+        memory: "150Mi"
+        cpu: "200m"
+  - name: yq
+    image: mikefarah/yq
+    command: ['cat']
+    tty: true
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "100m"
+      limits:
+        memory: "50Mi"
+        cpu: "100m"
+  - name: jpb
+    image: caladreas/jpb
+    command:
+    - cat
+    tty: true
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "100m"
+      limits:
+        memory: "50Mi"
+        cpu: "100m"
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 1000

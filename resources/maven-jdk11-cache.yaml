@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven
+    image: maven:3-jdk-11-slim
+    command: ['cat']
+    tty: true
+    volumeMounts:
+      - name: maven-cache
+        mountPath: /root/.m2/repository
+  volumes:
+    - name: maven-cache
+      hostPath:
+        path: /tmp
+        type: Directory

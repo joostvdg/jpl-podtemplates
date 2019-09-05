@@ -1,0 +1,42 @@
+kind: Pod
+metadata:
+  name: kaniko-simple
+spec:
+  containers:
+  - name: curl
+    image: byrnedo/alpine-curl
+    command:
+    - cat
+    tty: true
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "100m"
+      limits:
+        memory: "50Mi"
+        cpu: "100m"
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: Always
+    command:
+    - /busybox/cat
+    tty: true
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "100m"
+      limits:
+        memory: "50Mi"
+        cpu: "100m"
+    volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /root
+  volumes:
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+          name: docker-credentials
+          items:
+            - key: .dockerconfigjson
+              path: .docker/config.json
