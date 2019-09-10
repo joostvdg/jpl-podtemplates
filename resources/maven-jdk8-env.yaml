@@ -8,7 +8,7 @@ spec:
   - name: maven
     image: maven:3-jdk-8
     env:
-    - name: SECRET_USERNAME
+    - name: MY_NAME
       valueFrom:
         secretKeyRef:
           name: backend-user
