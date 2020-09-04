@@ -1,4 +1,4 @@
-function loadPodTemplateYamls() {
+function call() {
   println '==> loadPodTemplateYamls'
   println ' => reading catalog.properties'
   def props = readProperties file:'catalog.properties'
